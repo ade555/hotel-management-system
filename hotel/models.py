@@ -19,10 +19,13 @@ class Room(models.Model):
     capacity = models.IntegerField()
     price_per_night = models.DecimalField(max_digits=8, decimal_places=2)
 
+    def __str__(self):
+        return f"Room {self.room_number} \nType: {self.room_type}"
+
 class RoomImage(models.Model):
     room_type = models.ForeignKey(RoomType, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='room_images/')
-    
+
     def __str__(self):
         return self.room_type
     

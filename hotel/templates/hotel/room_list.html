@@ -1,0 +1,14 @@
+{% extends 'base.html'  %}
+
+
+{% block content %}
+
+{% for room in rooms %}
+<h1>{{room.room_type}}</h1>
+
+{% endfor%}
+
+{% for image in room_images %}
+    <img src="{{ image.image.url }}" alt="Room Image">
+{% endfor %}
+{% endblock content %}

@@ -31,7 +31,6 @@ class Room(models.Model):
 
     def __str__(self):
         room_type = self.properties.first().room_type if self.properties else None
-        print(room_type)
         return f"Room {self.room_number} \nType: {room_type}"
 
 class RoomImage(models.Model):
@@ -47,3 +46,7 @@ class Booking(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     check_in = models.DateTimeField()
     check_out = models.DateTimeField()
+
+    def __str__(self):
+        room_number = self.room.room_number if self.room else None
+        return f"Booking for Room number {room_number}"

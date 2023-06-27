@@ -9,3 +9,10 @@ class BookingForm(forms.Form):
         required=True, input_formats=["%Y-%m-%dT%H:%M"],
         widget=forms.DateTimeInput(attrs={'type': 'datetime-local'})
     )
+
+    """
+    
+    TO DO:
+    Work on form widget to allow cross browser compatibility in date time field
+
+    """

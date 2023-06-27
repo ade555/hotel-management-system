@@ -3,12 +3,22 @@
 
 {% block content %}
 
-{% for room in rooms %}
-<h1>{{room.room_type}}</h1>
+<ul>
+    {% for room in rooms %}
+        <li>
+            Room Number: {{ room.room_number }}<br>
+            Properties:
+            <ul>
+                {% for property in room.properties.all %}
+                    <li>Room Type: {{ property.room_type }}</li>
+                    <li>Number of Beds: {{ property.number_of_beds }}</li>
+                    <li>Capacity: {{ property.capacity }}</li>
+                    <li>Price per Night: {{ property.price_per_night }}</li>
+                {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+</ul>
 
-{% endfor%}
 
-{% for image in room_images %}
-    <img src="{{ image.image.url }}" alt="Room Image">
-{% endfor %}
 {% endblock content %}

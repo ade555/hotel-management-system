@@ -1,21 +1,42 @@
 {% extends 'base.html'  %}
 
-
 {% block content %}
 
-{% for room, room_url in room_list %}
-    <h2>{{ room.room_type }}</h2>
-    <p>{{ room.description|truncatechars:50 }}</p>
-    <ul>
-        {% for room_image in room.roomimage_set.all|slice:":4" %}
-            <li><img src="{{ room_image.image.url }}" alt="{{ room.room_type }}"></li>
-        {% empty %}
-            <li>No images available</li>
+<form method="GET" action="{% url 'RoomListView' %}">
+    <input type="text" name="search" placeholder="Search...">
+    <button type="submit">Search</button>
+</form>
+
+{% if request.GET.search %}
+    {% if rooms %}
+        {% for room, room_url in rooms %}
+            <h2>{{ room.room_type }}</h2>
+            <p>{{ room.description|truncatechars:50 }}</p>
+            <ul>
+                {% for room_image in room.roomimage_set.all|slice:":4" %}
+                    <li><img src="{{ room_image.image.url }}" alt="{{ room.room_type }}"></li>
+                {% empty %}
+                    <li>No images available</li>
+                {% endfor %}
+            </ul>
+            <a href="{{ room_url }}">View Description</a><br>
         {% endfor %}
-    </ul>
-    <a href="{{ room_url }}">View Description</a><br>
-{% endfor %}
-
-
+    {% else %}
+        <p>No results found for your search query.</p>
+    {% endif %}
+{% else %}
+    {% for room, room_url in room_list %}
+        <h2>{{ room.room_type }}</h2>
+        <p>{{ room.description|truncatechars:50 }}</p>
+        <ul>
+            {% for room_image in room.roomimage_set.all|slice:":4" %}
+                <li><img src="{{ room_image.image.url }}" alt="{{ room.room_type }}"></li>
+            {% empty %}
+                <li>No images available</li>
+            {% endfor %}
+        </ul>
+        <a href="{{ room_url }}">View Description</a><br>
+    {% endfor %}
+{% endif %}
 
 {% endblock content %}

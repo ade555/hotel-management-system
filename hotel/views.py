@@ -7,27 +7,17 @@ from .forms import BookingForm
 from hotel.utility_functions.room_availability import check_room_availability
 from django.urls import reverse_lazy
 
-# def RoomListView(request):
-#     room = Room.objects.all()[0]
-#     room_types = dict(ROOM_TYPES)
-#     room_values = room_types.values()
-#     room_list = []
-
-#     for room_type in room_types:
-#         room = room_types.get(room_type)
-#         room_url = reverse_lazy('RoomDetailView', kwargs={'type': room_type})
-#         room_list.append((room, room_url))
-#     context = {
-#         "room_list": room_list,
-#     }
-#     return render(request, 'room_list_view.html', context)
-
 class RoomListView(ListView):
     model = RoomType
     context_object_name = 'rooms'
     template_name = "hotel/room_list.html"
     def get_queryset(self):
-        return super().get_queryset().prefetch_related('roomimage_set')
+        queryset = super().get_queryset().prefetch_related('roomimage_set')
+        search_query = self.request.GET.get('search')
+        if search_query:
+            queryset = queryset.filter(room_type__icontains=search_query)
+        return queryset
+
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

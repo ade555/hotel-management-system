@@ -25,7 +25,7 @@ class RoomProperties(models.Model):
         return f"{self.room_type} - Beds: {self.number_of_beds}, Capacity: {self.capacity}"
 
 class Room(models.Model):
-    room_number = models.IntegerField()
+    room_number = models.IntegerField(unique=True)
     properties = models.ManyToManyField('RoomProperties')
 
 
@@ -38,7 +38,7 @@ class RoomImage(models.Model):
     image = models.ImageField(upload_to='room_images/')
 
     def __str__(self):
-        return self.room_type
+        return self.room_type.room_type
     
 
 class Booking(models.Model):
@@ -50,3 +50,11 @@ class Booking(models.Model):
     def __str__(self):
         room_number = self.room.room_number if self.room else None
         return f"Booking for Room number {room_number}"
+
+    def get_room_type(self):
+        room_types = dict(ROOM_TYPES)
+        room_properties = self.room.properties.first() if self.room.properties.exists() else None
+        if room_properties:
+            return room_types.get(room_properties.room_type.room_type)
+        else:
+            return None

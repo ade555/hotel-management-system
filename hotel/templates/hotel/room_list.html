@@ -3,22 +3,19 @@
 
 {% block content %}
 
-<ul>
-    {% for room in rooms %}
-        <li>
-            Room Number: {{ room.room_number }}<br>
-            Properties:
-            <ul>
-                {% for property in room.properties.all %}
-                    <li>Room Type: {{ property.room_type }}</li>
-                    <li>Number of Beds: {{ property.number_of_beds }}</li>
-                    <li>Capacity: {{ property.capacity }}</li>
-                    <li>Price per Night: {{ property.price_per_night }}</li>
-                {% endfor %}
-            </ul>
-        </li>
-    {% endfor %}
-</ul>
+{% for room, room_url in room_list %}
+    <h2>{{ room.room_type }}</h2>
+    <p>{{ room.description|truncatechars:50 }}</p>
+    <ul>
+        {% for room_image in room.roomimage_set.all|slice:":4" %}
+            <li><img src="{{ room_image.image.url }}" alt="{{ room.room_type }}"></li>
+        {% empty %}
+            <li>No images available</li>
+        {% endfor %}
+    </ul>
+    <a href="{{ room_url }}">View Description</a><br>
+{% endfor %}
+
 
 
 {% endblock content %}

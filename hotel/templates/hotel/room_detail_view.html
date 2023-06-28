@@ -3,11 +3,19 @@
 
 {% block content %}
 
+{% if user.is_authenticated %}
+
 <form method="post">
     {% csrf_token %}
 
     {{ form.as_p }}
     <input type="submit" value="Submit">
 </form>
+
+{% else %}
+
+<h3>Please login first</h3>
+{% endif %}
+
 
 {% endblock content %}

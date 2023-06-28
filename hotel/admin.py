@@ -1,12 +1,13 @@
 from django.contrib import admin
 from .models import Room, Booking, RoomImage, RoomType, RoomProperties
 
-# admin.site.register(Room)
-
 admin.site.register(RoomImage)
 admin.site.register(RoomType)
 admin.site.register(RoomProperties)
 
+
+
+@admin.register(Room)
 class RoomAdmin(admin.ModelAdmin):
     list_display = ['room_number', 'get_room_type', 'get_number_of_beds', 'get_capacity', 'get_price_per_night']
     ordering = ['room_number']
@@ -35,10 +36,10 @@ class RoomAdmin(admin.ModelAdmin):
     def get_price_per_night(self, obj):
         return self.get_room_property(obj, 'price_per_night')
     get_price_per_night.short_description = 'Room Price per night'
-admin.site.register(Room, RoomAdmin)
 
 
 
+@admin.register(Booking)
 class BookingAdmin(admin.ModelAdmin):
     list_display = ['get_room_type', 'get_number_of_beds', 'get_capacity', 'get_price_per_night']
     list_filter = ['room__properties__room_type',]
@@ -56,7 +57,6 @@ class BookingAdmin(admin.ModelAdmin):
                 return getattr(room_properties, property_name)
         return None
 
-    
     def get_room_type(self, obj):
         return self.get_booked_room_property(obj, 'room_type')
     get_room_type.short_description = 'Room Type'
@@ -72,4 +72,3 @@ class BookingAdmin(admin.ModelAdmin):
     def get_price_per_night(self, obj):
         return self.get_booked_room_property(obj, 'price_per_night')
     get_price_per_night.short_description = 'Room Price per night'
-admin.site.register(Booking, BookingAdmin)

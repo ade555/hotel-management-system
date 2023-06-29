@@ -22,7 +22,12 @@
             <a href="{{ room_url }}">View Description</a><br>
         {% endfor %}
     {% else %}
-        <p>No results found for your search query.</p>
+    <div class="container">
+        <div class="emoji">😕</div>
+        <h1>Oops!</h1>
+        <p>We currently do not have the room you searched for. Please search for another room.</p>
+        <a class="btn btn-primary" href="{% url 'RoomListView' %}">Go back to Home</a>
+    </div>
     {% endif %}
 {% else %}
     {% for room, room_url in room_list %}

@@ -31,7 +31,6 @@ class RoomListView(ListView):
 
 class RoomDetailView(View):
     def get(self, request, *args, **kwargs):
-        print(self.request.user)
         room_type = self.kwargs.get('room_type', None)
         form = BookingForm()
         room_list = Room.objects.filter(properties__room_type__room_type=room_type)

@@ -6,6 +6,7 @@ from .models import Room, RoomImage, Booking, RoomType
 from .forms import BookingForm
 from hotel.utility_functions.room_availability import check_room_availability
 from django.urls import reverse_lazy
+from datetime import datetime, timezone
 
 class RoomListView(ListView):
     model = RoomType
@@ -58,6 +59,12 @@ class RoomDetailView(View):
 
         if form.is_valid():
             data = form.cleaned_data
+            check_out = data['check_out'].replace(tzinfo=timezone.utc)
+
+            if check_out < data['check_in']:
+                form.add_error('check_out', 'Cannot check out earlier than the check-in time')
+                return render(request, 'hotel/room_detail_view.html', {'form': form})
+
 
         available_rooms = []
         for room in room_list:

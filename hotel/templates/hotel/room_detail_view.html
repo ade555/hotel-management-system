@@ -9,6 +9,11 @@
     {% csrf_token %}
 
     {{ form.as_p }}
+    {% if form.check_out.errors %}
+    <div class="text-danger">
+      {{ form.check_out.errors }}
+    </div>
+  {% endif %}
     <input type="submit" value="Submit">
 </form>
 

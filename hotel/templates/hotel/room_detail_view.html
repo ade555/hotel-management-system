@@ -1,26 +1,26 @@
-{% extends 'base.html'  %}
-
+{% extends 'base.html' %}
 
 {% block content %}
 
-{% if user.is_authenticated %}
+{% if not user.is_authenticated %}
+    <h3>Please login to book a room</h3>
+{% endif %}
 
 <form method="post">
     {% csrf_token %}
 
     {{ form.as_p }}
     {% if form.check_out.errors %}
-    <div class="text-danger">
-      {{ form.check_out.errors }}
-    </div>
-  {% endif %}
-    <input type="submit" value="Submit">
+        <div class="text-danger">
+            {{ form.check_out.errors }}
+        </div>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+        <input type="submit" value="Submit">
+    {% else %}
+        <input type="submit" value="Submit" disabled>
+    {% endif %}
 </form>
-
-{% else %}
-
-<h3>Please login first</h3>
-{% endif %}
-
 
 {% endblock content %}

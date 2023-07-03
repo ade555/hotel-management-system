@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import ListView, View
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from .room_types import ROOM_TYPES
 from .models import Room, RoomImage, Booking, RoomType
 from .forms import BookingForm
@@ -25,7 +25,7 @@ class RoomListView(ListView):
         room_list = []
         for room_type in self.object_list:
             room_type_name = room_type.room_type
-            room_url = reverse_lazy('RoomDetailView', kwargs={'room_type': room_type_name})
+            room_url = reverse_lazy('hotel:RoomDetailView', kwargs={'room_type': room_type_name})
             room_list.append((room_type, room_url))
         context['room_list'] = room_list
         return context
@@ -47,10 +47,7 @@ class RoomDetailView(View):
             }
             return render(request, 'hotel/room_detail_view.html', context)
         else:
-            return HttpResponse('Category does not exist')
-        """
-        TO-DO: Only show "category does not exist when the category in the url is not a room category in the hhotel"
-        """
+            raise Http404('Category does not exist')
 
     def post(self, request, *args, **kwargs):
         room_type = self.kwargs.get('room_type', None)

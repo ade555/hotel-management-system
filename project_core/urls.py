@@ -23,7 +23,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('accounts/profile/', include('users.urls')),
-    path('', include("hotel.urls")),
+    path('hotel/', include("hotel.urls")),
+    path('', include("content_app.urls")),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 handler404 = 'hotel.views.custom_404'

@@ -1,6 +1,7 @@
 from django import forms
 from .models import User
-from allauth.account.forms import SignupForm
+from allauth.account.forms import SignupForm, LoginForm
+from project_core.utils import DivErrorList
 
 class UserProfileForm(forms.ModelForm):
     class Meta:
@@ -14,10 +15,14 @@ class CustomSignupForm(SignupForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['first_name'].widget.attrs.update({'placeholder': 'First Name'})
-        self.fields['last_name'].widget.attrs.update({'placeholder': 'Last Name'})
+        self.fields['first_name'].widget.attrs.update({'placeholder': 'First Name', 'class': 'form-control'})
+        self.fields['last_name'].widget.attrs.update({'placeholder': 'Last Name', 'class': 'form-control'})
+        self.fields['email'].widget.attrs.update({'placeholder': 'Email', 'class': 'form-control'})
+        self.fields['password1'].widget.attrs.update({'placeholder': 'Password', 'class': 'form-control'})
+        self.fields['password2'].widget.attrs.update({'placeholder': 'Confirm Password', 'class': 'form-control'})
         self.fields['first_name'].required = True
         self.fields['last_name'].required = True
+        self.error_class = DivErrorList
 
     def save(self, request):
         user = super().save(request)
@@ -25,3 +30,11 @@ class CustomSignupForm(SignupForm):
         user.last_name = self.cleaned_data['last_name']
         user.save()
         return user
+
+class CustomLoginForm(LoginForm):
+    def __init__(self, *args, **kwargs):
+        super(CustomLoginForm, self).__init__(*args, **kwargs)
+        self.fields['login'].widget.attrs.update({'placeholder': 'Email', 'class': 'form-control'})
+        self.fields['password'].widget.attrs.update({'placeholder': 'Password', 'class': 'form-control'})
+        self.fields['remember'].widget.attrs.update({ 'class': 'form-check-input'})
+        self.error_class = DivErrorList

@@ -11,6 +11,10 @@ a{
 .bg-dark, .bg-primary{
     background-color: var(--primary) !important;
 }
+.bg-accent{
+    background-color: var(--accent) !important;
+    border: var(--accent);
+}
 .fw-medium {
     font-weight: 500 !important;
 }
@@ -26,13 +30,20 @@ a{
     bottom: 45px;
     z-index: 99;
 }
-
-.text-primary{
+.auth-page{
+    height: auto;
+    max-width: 100%;
+}
+.text-accent{
     color: var(--accent)!important;
+}
+.text-primary{
+    color: var(--primary)!important;
 }
 .service-text{
     color: var(--accent);
 }
+
 /*** Spinner ***/
 #spinner {
     opacity: 0;

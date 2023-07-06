@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView, View
+from django.views.generic import ListView, View, DeleteView
 from django.http import HttpResponse, Http404
 from .room_types import ROOM_TYPES
 from .models import Room, RoomImage, Booking, RoomType
@@ -91,6 +91,12 @@ class BookingListView(ListView):
         else:
             booking_list = Booking.objects.filter(user=self.request.user)
             return booking_list
+
+
+class CancelBookingView(DeleteView):
+    model = Booking
+    success_url = reverse_lazy('hotel:BookingListView')
+
 
 def custom_404(request, exception):
     return render(request, '404.html', status=404)

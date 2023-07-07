@@ -13,9 +13,3 @@ services:
         generateValue: true
       - key: WEB_CONCURRENCY
         value: 4
-      - key: EMAIL_HOST
-      - key: EMAIL_PORT
-      - key: EMAIL_HOST_USER
-      - key: EMAIL_HOST_PASSWORD
-      - key: EMAIL_USE_TLS
-      - key: CONTACT_EMAIL

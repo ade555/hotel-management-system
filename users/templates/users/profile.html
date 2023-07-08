@@ -1,10 +1,35 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Profile</h1>
-    <p>Email: {{ user.email }}</p>
-    <p>First Name: {{ user.first_name }}</p>
-    <p>Last Name: {{ user.last_name }}</p>
-    <img src="{{ user.profile_picture.url }}" alt="Profile Picture">
-    <a href="{% url 'UpdateProfileView' %}">Update Profile</a>
+
+<div class="container my-3">
+    <div class="row">
+        <div class="col-md-4">
+            {% if user.profile_picture %}
+                <img src="{{ user.profile_picture.url }}" alt="Profile Picture" class="img-fluid">
+            {% else %}
+                <img src="/media/default.png" alt="Default Profile Picture" class="img-fluid">
+            {% endif %}
+        </div>
+        <div class="col-md-8 my-3">
+          <h1>{{ user.first_name|capfirst }} {{ user.last_name|capfirst }}</h1>
+          <form>
+            <div class="form-group my-3">
+              <label for="firstName" class="text-accent"><b>First Name</b></label>
+              <input type="text" class="form-control" id="firstName" value="{{ user.first_name }}" readonly>
+            </div>
+            <div class="form-group my-3">
+              <label for="lastName" class="text-accent"><b>Last Name</b></label>
+              <input type="text" class="form-control" id="lastName" value="{{ user.last_name }}" readonly>
+            </div>
+            <div class="form-group my-3">
+              <label for="email" class="text-accent"><b>Email</b></label>
+              <input type="email" class="form-control" id="email" value="{{ user.email }}" readonly>
+            </div>
+            <a href="{% url 'users:UpdateProfileView' %}" class="btn btn-dark my-3"><b>Update Profile</b></a>
+          </form>
+        </div>
+    </div>
+</div>
+
 {% endblock content %}

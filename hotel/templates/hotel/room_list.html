@@ -7,31 +7,30 @@
     <input type="text" name="search" placeholder="Search...">
     <button type="submit">Search</button>
 </form>
-
+{% comment %} check if the user searches for a room{% endcomment %}
 {% if request.GET.search %}
-    {% if rooms %}
-        {% for room, room_url in rooms %}
-            <h2>{{ room.room_type }}</h2>
-            <p>{{ room.description|truncatechars:50 }}</p>
-            <ul>
-                {% for room_image in room.roomimage_set.all|slice:":4" %}
-                    <li><img src="{{ room_image.image.url }}" alt="{{ room.room_type }}"></li>
-                {% empty %}
-                    <li>No images available</li>
-                {% endfor %}
-            </ul>
-            <a href="{{ room_url }}">View Description</a><br>
-        {% endfor %}
-    {% else %}
-    <center>
-        <div class="container">
-            <h1 class="emoji">😕</h1>
-            <h1>Oops!</h1>
-            <h4>We currently do not have the room you searched for. Please search for another room.</h4>
-            <a class="btn btn-primary" href="{% url 'hotel:RoomListView' %}">View all rooms</a>
+        <div class="container-xxl py-5">
+            <div class="container">
+            {% if rooms %}
+                <h1>You searched for {{search}}</h1> 
+                <div class="row g-4">
+                    {% for room, room_url in room_list %}
+                    {% include 'rooms_list.html' %}
+                    {% endfor %}
+                </div>
+             {% else %}
+             {% comment %} return error message ifuser's search query does not  match any rooms {% endcomment %}
+             <center>
+                 <div class="container">
+                     <h1 class="emoji">😕</h1>
+                     <h1>Oops!</h1>
+                     <h4>We currently do not have the room you searched for. Please search for another room.</h4>
+                     <a class="btn btn-primary" href="{% url 'hotel:RoomListView' %}">View all rooms</a>
+                 </div>
+             </center>
+             {% endif %}
+            </div>
         </div>
-    </center>
-    {% endif %}
 {% else %}
         <!-- Room Start -->
         <div class="container-xxl py-5">
@@ -42,29 +41,7 @@
                 </div>
                 <div class="row g-4">
                     {% for room, room_url in room_list %}
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="room-item shadow rounded overflow-hidden">
-                            <div class="position-relative">
-                                {% for room_image in room.roomimage_set.all|slice:":1" %}
-                                <img class="img-fluid" src="{{ room_image.image.url }}" alt="{{ room.room_type }}">
-                                {% endfor %}
-                                <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">$10000/Night</small>
-                            </div>
-                            <div class="p-4 mt-2">
-                                <div class="d-flex justify-content-between mb-3">
-                                    <h5 class="mb-0">{{ room.room_type|capfirst }} Rooms</h5>
-                                </div>
-                                <!-- <div class="d-flex mb-3">
-                                    <small class="border-end me-3 pe-3"><i class="fa fa-bed text-accent me-2"></i>3 Bed</small>
-                                    <small class="border-end me-3 pe-3"><i class="fa fa-bath text-accent me-2"></i>2 Bath</small>
-                                </div> -->
-                                <p class="text-body mb-3">{{ room.description|truncatechars:100 }}</p>
-                                <div class="d-flex justify-content-between">
-                                    <a class="btn btn-sm btn-primary rounded py-2 px-4" href="{{ room_url }}">View Detail</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {% include 'rooms_list.html' %}
                     {% endfor %}
                 </div>
             </div>

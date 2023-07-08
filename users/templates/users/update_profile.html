@@ -1,10 +1,44 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Update Profile</h1>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Update</button>
-    </form>
+    <h1 class="text-center my-3">Update Profile</h1>
+    <div class="container">
+        <form method="post" enctype="multipart/form-data">
+            {{ form.non_field_errors | safe }}
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group my-2">
+                        <label for="{{form.first_name.id_for_label}}" class="text-accent"><b>First Name</b></label>
+                        {{ form.first_name }}
+                        {{ form.first_name.errors|safe }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group my-2">
+                        <label for="{{form.last_name.id_for_label}}" class="text-accent"><b>Last Name</b></label>
+                        {{ form.last_name }}
+                        {{ form.last_name.errors|safe }}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group my-2">
+                        <label for="{{form.email.id_for_label}}" class="text-accent"><b>Email</b></label>
+                        {{ form.email }}
+                        {{ form.email.errors|safe }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group my-2">
+                        <label for="{{form.profile_picture.id_for_label}}" class="text-accent"><b>Profile Picture</b></label>
+                        {{ form.profile_picture }}
+                        {{ form.profile_picture.errors|safe }}
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-dark my-3">Update</button>
+        </form>
+    </div>
 {% endblock %}

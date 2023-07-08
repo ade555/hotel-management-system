@@ -63,7 +63,11 @@ a{
     opacity: 1;
 }
 
-
+.profile-image {
+    border-radius: 50%;
+    max-width: 200px;
+    height: auto;
+  }
 /*** Button ***/
 .btn {
     font-weight: 500;

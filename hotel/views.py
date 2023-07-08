@@ -1,3 +1,4 @@
+import re
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, View, DeleteView
 from django.http import HttpResponse, Http404
@@ -17,18 +18,25 @@ class RoomListView(ListView):
         queryset = super().get_queryset().prefetch_related('roomimage_set')
         search_query = self.request.GET.get('search')
         if search_query:
-            queryset = queryset.filter(room_type__icontains=search_query)
+            # Extract the first word from the search query
+            match = re.search(r'\b(\w+)', search_query)
+            if match:
+                first_word = match.group(1)
+                # Perform a search based on the extracted first word
+                queryset = queryset.filter(room_type__iregex=r'\b{}\b'.format(first_word))
         return queryset
 
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        search_query = self.request.GET.get('search')
         room_list = []
         for room_type in self.object_list:
             room_type_name = room_type.room_type
             room_url = reverse_lazy('hotel:RoomDetailView', kwargs={'room_type': room_type_name})
             room_list.append((room_type, room_url))
         context['room_list'] = room_list
+        context['search'] = search_query
         return context
 
 class RoomDetailView(View):
@@ -79,26 +87,30 @@ class RoomDetailView(View):
             )
             booking.save()
             messages.success(request, f'You have successfully booked a {room_type} room')
-            return redirect('hotel:BookingListView')
+            return redirect('hotel:BookedRoomsView')
         else:
-            messages.error(request, f'All {room_type} rooms have been booked. Please try another one.')
+            messages.error(request, f'All {room_type} rooms have been booked at this period. Please try another one or book at a different time.')
             return redirect('hotel:RoomListView')
 
-class BookingListView(ListView):
+class BookedRoomsView(ListView):
     model = Booking
+    template_name = 'hotel/booked_rooms.html'
 
-    def get_queryset(self, *args, **kwargs):
+    def get_queryset(self):
         if self.request.user.is_staff:
-            booking_list = Booking.objects.all()
-            return booking_list
+            return Booking.objects.all()
         else:
-            booking_list = Booking.objects.filter(user=self.request.user)
-            return booking_list
+            return Booking.objects.filter(user=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['booked_rooms'] = self.get_queryset()  # Add booked_rooms to the context
+        return context
 
 
 class CancelBookingView(DeleteView):
     model = Booking
-    success_url = reverse_lazy('hotel:BookingListView')
+    success_url = reverse_lazy('hotel:BookedRoomsView')
 
 
 def custom_404(request, exception):

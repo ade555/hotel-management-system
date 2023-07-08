@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% include 'flash_messages.html' %}
 {% for booking in booking_list %}
 <div class="booking">
     <div class="category">

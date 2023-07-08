@@ -1,12 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, View, DeleteView
 from django.http import HttpResponse, Http404
+from django.contrib import messages
 from .room_types import ROOM_TYPES
-from .models import Room, RoomImage, Booking, RoomType
+from .models import Room, RoomType, Booking
 from .forms import BookingForm
 from hotel.utility_functions.room_availability import check_room_availability
 from django.urls import reverse_lazy
-from datetime import datetime, timezone
+from datetime import timezone
 
 class RoomListView(ListView):
     model = RoomType
@@ -77,9 +78,11 @@ class RoomDetailView(View):
                 check_out=data['check_out']
             )
             booking.save()
-            return HttpResponse(booking)
+            messages.success(request, f'You have successfully booked a {room_type} room')
+            return redirect('hotel:BookingListView')
         else:
-            return HttpResponse('All of this category of rooms are booked!! Try another one')
+            messages.error(request, f'All {room_type} rooms have been booked. Please try another one.')
+            return redirect('hotel:RoomListView')
 
 class BookingListView(ListView):
     model = Booking

@@ -4,6 +4,7 @@ from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
 from django.conf import settings
 from django.core.mail import send_mail
+from django.contrib import messages
 from django.template.loader import render_to_string
 from .forms import ContactForm
 
@@ -13,7 +14,7 @@ class HomePage(RoomListView):
 class ContactView(FormView):
     template_name = 'content_app/contact.html'
     form_class = ContactForm
-    success_url = reverse_lazy('content_app:home')
+    success_url = reverse_lazy('content_app:contact')
 
     def form_valid(self, form):
         # Save the message in the database
@@ -55,6 +56,8 @@ class ContactView(FormView):
             [email],
             html_message=render_to_string('contact_mail/contact_user.html', user_email_data),
         )
+
+        messages.success(self.request, 'Your message has been sent successfully!')
 
         return super().form_valid(form)
 

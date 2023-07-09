@@ -8,7 +8,7 @@ from .models import Room, RoomType, Booking, RoomImage
 from .forms import BookingForm
 from hotel.utility_functions.room_availability import check_room_availability
 from django.urls import reverse_lazy
-from datetime import timezone
+from datetime import timezone, datetime
 
 class RoomListView(ListView):
     model = RoomType
@@ -107,6 +107,8 @@ class BookedRoomsView(ListView):
         room_prices = []
         room_images = []
         room_descriptions = []
+        booking_status=[]
+        current_date = datetime.now(timezone.utc)
         
         for booked_room in booked_rooms:
             room_properties = booked_room.room.properties.first()
@@ -118,12 +120,14 @@ class BookedRoomsView(ListView):
                 else:
                     room_images.append(None)
                 room_descriptions.append(room_properties.room_type.description)
+                booking_status.append(booked_room.check_out >= current_date)
             else:
                 room_prices.append(None)
                 room_images.append(None)
                 room_descriptions.append(None)
+                booking_status.append(False)
         
-        context['booked_rooms'] = zip(booked_rooms, room_prices, room_images, room_descriptions)
+        context['booked_rooms'] = zip(booked_rooms, room_prices, room_images, room_descriptions, booking_status)
         return context
 
 

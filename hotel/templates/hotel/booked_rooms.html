@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load humanize %}
+from datetime import date
 {% block content %}
         <!-- Page Header Start -->
         {% include 'flash_messages.html' %}
@@ -28,7 +29,7 @@
             <h1 class="mb-5">View Your Booked <span class="text-accent text-uppercase">Rooms</span></h1>
         </div>
         <div class="row g-4">
-            {% for booked_room, price, image, description in booked_rooms %}
+            {% for booked_room, price, image, description, checked_in in booked_rooms %}
             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="room-item shadow rounded overflow-hidden">
                     <div class="position-relative">
@@ -47,9 +48,13 @@
                         <strong><small class="d-block">Check out: {{booked_room.check_out}}</small></strong>
                         <p class="text-body mb-3 mt-2">{{ description|truncatechars:100 }}</p>
                         <div class="d-flex justify-content-between">
+                            {% if not checked_in %}
+                            <button type="button" class="btn btn-secondary" disabled>Checked out</button>
+                            {% else %}
                             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelbookingModal{{ booked_room.pk }}">
                                 Cancel Booking
                             </button>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

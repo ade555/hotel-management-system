@@ -19,10 +19,20 @@
         </div>
         <!-- Page Header End -->
 
-<form method="GET" action="{% url 'hotel:RoomListView' %}">
-    <input type="text" name="search" placeholder="Search...">
-    <button type="submit">Search</button>
-</form>
+<div class="container">
+    <div class="row justify-content-end">
+        <div class="col-md-4">
+            <form method="GET" action="{% url 'hotel:RoomListView' %}">
+                <div class="input-group">
+                    <input type="text" name="search" class="form-control" required placeholder="Search for a room">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-dark">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>        
 {% comment %} check if the user searches for a room{% endcomment %}
 {% if request.GET.search %}
         <div class="container-xxl py-5">

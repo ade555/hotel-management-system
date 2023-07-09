@@ -41,7 +41,7 @@
                     <h1 class="mb-5">Explore Our <span class="text-accent text-uppercase">Rooms</span></h1>
                 </div>
                 <div class="row g-4">
-                    {% for room, room_url in room_list %}
+                    {% for room, room_url in room_list|slice:":3" %}
                     {% include 'rooms_list.html' %}
                     {% endfor %}
                 </div>

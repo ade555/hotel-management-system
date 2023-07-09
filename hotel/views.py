@@ -4,7 +4,7 @@ from django.views.generic import ListView, View, DeleteView
 from django.http import HttpResponse, Http404
 from django.contrib import messages
 from .room_types import ROOM_TYPES
-from .models import Room, RoomType, Booking
+from .models import Room, RoomType, Booking, RoomImage
 from .forms import BookingForm
 from hotel.utility_functions.room_availability import check_room_availability
 from django.urls import reverse_lazy
@@ -15,7 +15,7 @@ class RoomListView(ListView):
     context_object_name = 'rooms'
     template_name = "hotel/room_list.html"
     def get_queryset(self):
-        queryset = super().get_queryset().prefetch_related('roomimage_set')
+        queryset = super().get_queryset().prefetch_related('roomimage_set', 'roomproperties_set')
         search_query = self.request.GET.get('search')
         if search_query:
             # Extract the first word from the search query
@@ -101,11 +101,31 @@ class BookedRoomsView(ListView):
             return Booking.objects.all()
         else:
             return Booking.objects.filter(user=self.request.user)
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['booked_rooms'] = self.get_queryset()  # Add booked_rooms to the context
+        booked_rooms = self.get_queryset()
+        room_prices = []
+        room_images = []
+        room_descriptions = []
+        
+        for booked_room in booked_rooms:
+            room_properties = booked_room.room.properties.first()
+            if room_properties:
+                room_prices.append(room_properties.price_per_night)
+                room_image = RoomImage.objects.filter(room_type=room_properties.room_type).first()
+                if room_image:
+                    room_images.append(room_image.image.url)
+                else:
+                    room_images.append(None)
+                room_descriptions.append(room_properties.room_type.description)
+            else:
+                room_prices.append(None)
+                room_images.append(None)
+                room_descriptions.append(None)
+        
+        context['booked_rooms'] = zip(booked_rooms, room_prices, room_images, room_descriptions)
         return context
+
 
 
 class CancelBookingView(DeleteView):

@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'hotel',
     'hotel.utility_functions',
     'content_app',
+    'django.contrib.humanize',
  
     # django allauth
     'allauth',

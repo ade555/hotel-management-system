@@ -66,9 +66,11 @@ class RoomDetailView(View):
         if form.is_valid():
             data = form.cleaned_data
             check_out = data['check_out'].replace(tzinfo=timezone.utc)
+            current_day = datetime.now(timezone.utc)
 
-            if check_out < data['check_in']:
+            if check_out < data['check_in'] or data['check_in'] < current_day:
                 form.add_error('check_out', 'Cannot check out earlier than the check-in time')
+                form.add_error('check_in', 'Cannot check in at a previous date')
                 return render(request, 'hotel/room_detail_view.html', {'form': form})
 
 
@@ -129,8 +131,6 @@ class BookedRoomsView(ListView):
         
         context['booked_rooms'] = zip(booked_rooms, room_prices, room_images, room_descriptions, booking_status)
         return context
-
-
 
 class CancelBookingView(DeleteView):
     model = Booking

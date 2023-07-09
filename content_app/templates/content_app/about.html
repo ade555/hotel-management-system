@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <!-- Page Header Start -->
+    {% include 'flash_messages.html' %}
+    <div class="container-fluid page-header mb-5 p-0" style="background-image: url('{% static 'img/about-1.jpg' %}');">
+        <div class="container-fluid page-header-inner py-5">
+            <div class="container text-center pb-5">
+                <h1 class="display-3 text-white mb-3 animated slideInDown">About</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center text-uppercase">
+                        <li class="breadcrumb-item"><a href="{%url 'content_app:home'%}">Home</a></li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">About</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+    <div class="container">
+        <div class="row">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title text-center text-accent text-uppercase">Our Vision</h6>
+                <h1 class="mb-5"><span class="text-accent">Unveiling</span> Tomorrow's Possibilities</h1>
+            </div>
+            <div class="col-md-6">
+                <img src="{% static 'img/about-vision.jpg' %}" alt="" class="img-fluid">
+            </div>
+            <div class="col-md-6 d-flex align-items-center my-3">
+                <div>
+                    <p>
+                        Our vision at Hotel Miramar SG is to redefine the hospitality industry by creating unforgettable experiences for our guests. We strive to go beyond the ordinary and set new standards of excellence. With a commitment to innovation and personalized service, we aim to unveil tomorrow's possibilities in the world of hospitality.
+                    </p>
+                    <p>
+                        At Hotel Miramar SG, we believe that every guest deserves a unique and exceptional stay. Our dedicated team of professionals is passionate about creating a welcoming and comfortable environment, where guests can relax and indulge in luxury. From our thoughtfully designed rooms to our world-class amenities, we aim to exceed expectations and provide a truly memorable experience. Whether you are traveling for business or leisure, we are dedicated to making your stay with us an unforgettable one.
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row my-5">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title text-center text-accent text-uppercase">Our Mission</h6>
+                <h1 class="mb-5"><span class="text-accent">Unleashing</span> Hospitality's Future</h1>
+            </div>
+            <div class="col-md-6 d-flex align-items-center my-3">
+                <div>
+                    <p>
+                        At Hotel Miramar SG, our mission is to redefine the hospitality landscape by delivering unparalleled experiences to our guests. We strive to create a harmonious blend of luxury, comfort, and personalized service that exceeds expectations. Our dedicated team is committed to unleashing the future of hospitality, where every moment is crafted with utmost care and attention to detail.
+                    </p>
+                    <p>
+                        With a relentless pursuit of excellence, we aim to create a haven of tranquility and indulgence for our guests. From the moment you step into our elegant lobby, you will be greeted with warm smiles and a genuine desire to make your stay exceptional. Whether you are here for business or leisure, our mission is to provide a seamless and memorable experience that leaves a lasting impression.
+                    </p>
+                    <p>
+                        At Hotel Miramar SG, we believe that true hospitality goes beyond providing a place to stay. It is about creating moments of joy, surprise, and delight. From our thoughtfully designed rooms and world-class amenities to our exceptional dining options and rejuvenating spa, every aspect of your stay is carefully curated to ensure your utmost satisfaction. Join us on this journey as we unleash the future of hospitality and create unforgettable memories together.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <img src="{% static 'img/about-vision.jpg' %}" alt="" class="img-fluid">
+            </div>
+        </div>
+    </div>
+{% endblock content %}

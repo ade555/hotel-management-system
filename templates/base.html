@@ -54,7 +54,7 @@
                         <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                             <div class="navbar-nav mr-auto py-0">
                                 <a href="{% url 'content_app:home' %}" class="nav-item nav-link text-white">Home</a>
-                                <a href="about.html" class="nav-item nav-link text-white">About</a>
+                                <a href="{% url 'content_app:about' %}" class="nav-item nav-link text-white">About</a>
                                 <a href="{% url 'hotel:RoomListView' %}" class="nav-item nav-link text-white">Rooms</a>
                                 <a href="{% url 'content_app:contact' %}" class="nav-item nav-link text-white">Contact</a>
                                 {% if user.is_authenticated %}
@@ -145,7 +145,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/noframework.waypoints.min.js" integrity="sha512-fHXRw0CXruAoINU11+hgqYvY/PcsOWzmj0QmcSOtjlJcqITbPyypc8cYpidjPurWpCnlB8VKfRwx6PIpASCUkQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <script src="{% static 'libraries/counterup/counterup.min.js' %}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js" integrity="sha512-9CWGXFSJ+/X0LWzSRCZFsOPhSfm6jbnL+Mpqo0o8Ke2SYr8rCTqb4/wGm+9n13HtDE1NQpAEOrMecDZw4FXQGg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- Templatejavascript -->

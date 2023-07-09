@@ -53,30 +53,35 @@
                     <div class="col-md-6">
                         <div class="wow fadeInUp" data-wow-delay="0.2s">
                             <form method="post">
+                                {{ form.non_field_errors | safe }}
                                 {% csrf_token %}
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <div class="form-floating form-group">
                                             {{ form.name }}
                                             <label for="{{ form.name.id_for_label }}">Your Name</label>
+                                            {{ form.name.errors|safe }}
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-floating form-group">
                                             {{ form.email }}
                                             <label for="{{ form.email.id_for_label }}">Your Email</label>
+                                            {{ form.email.errors|safe }}
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-floating form-group">
                                             {{ form.subject }}
                                             <label for="form.subject.id_for_label">Subject</label>
+                                            {{ form.subject.errors|safe }}
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-floating form-group">
                                             {{ form.message }}
                                             <label for="form.message.id_for_label">Message</label>
+                                            {{ form.message.errors|safe }}
                                         </div>
                                     </div>
                                     <div class="col-12">

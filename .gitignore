@@ -4,7 +4,7 @@ __pycache__/
 *$py.class
 
 # migrations
-migrations/
+# migrations/
 # C extensions
 *.so
 latest.dump

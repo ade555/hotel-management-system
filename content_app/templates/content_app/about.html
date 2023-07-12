@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
+
+{% block title %} Hotel Miramar SG | About us {% endblock title %}
 {% block content %}
     <!-- Page Header Start -->
     {% include 'flash_messages.html' %}
@@ -25,9 +27,9 @@
                 <h1 class="mb-5"><span class="text-accent">Unveiling</span> Tomorrow's Possibilities</h1>
             </div>
             <div class="col-md-6">
-                <img src="{% static 'img/about-vision.jpg' %}" alt="" class="img-fluid">
+                <img src="{% static 'img/about-vision.jpg' %}" alt="" class="img-fluid wow fadeInUp" data-wow-delay="0.1s">
             </div>
-            <div class="col-md-6 d-flex align-items-center my-3">
+            <div class="col-md-6 d-flex align-items-center my-3 wow fadeInUp" data-wow-delay="0.5s">
                 <div>
                     <p>
                         Our vision at Hotel Miramar SG is to redefine the hospitality industry by creating unforgettable experiences for our guests. We strive to go beyond the ordinary and set new standards of excellence. With a commitment to innovation and personalized service, we aim to unveil tomorrow's possibilities in the world of hospitality.
@@ -44,7 +46,7 @@
                 <h6 class="section-title text-center text-accent text-uppercase">Our Mission</h6>
                 <h1 class="mb-5"><span class="text-accent">Unleashing</span> Hospitality's Future</h1>
             </div>
-            <div class="col-md-6 d-flex align-items-center my-3">
+            <div class="col-md-6 d-flex align-items-center my-3 wow fadeInUp" data-wow-delay="0.1s">
                 <div>
                     <p>
                         At Hotel Miramar SG, our mission is to redefine the hospitality landscape by delivering unparalleled experiences to our guests. We strive to create a harmonious blend of luxury, comfort, and personalized service that exceeds expectations. Our dedicated team is committed to unleashing the future of hospitality, where every moment is crafted with utmost care and attention to detail.
@@ -58,7 +60,7 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <img src="{% static 'img/about-mission.jpg' %}" alt="" class="img-fluid">
+                <img src="{% static 'img/about-mission.jpg' %}" alt="" class="img-fluid wow fadeInUp" data-wow-delay="0.5s">
             </div>
         </div>
     </div>

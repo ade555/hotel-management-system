@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
-{% load static %}
-{% load humanize %}
-from datetime import date
+{% load static humanize%}
+
+{% block title %} My booked rooms {% endblock title %}
 {% block content %}
         <!-- Page Header Start -->
         {% include 'flash_messages.html' %}
@@ -20,7 +20,6 @@ from datetime import date
             </div>
         </div>
         <!-- Page Header End -->
-<a href="{% url 'hotel:RoomListView' %}" class="btn btn-dark" role="button">Book a Room</a>
 <!-- Booked Rooms Start -->
 <div class="container-xxl py-5">
     <div class="container">
@@ -28,6 +27,7 @@ from datetime import date
             <h6 class="section-title text-center text-accent text-uppercase">Booked Rooms</h6>
             <h1 class="mb-5">View Your Booked <span class="text-accent text-uppercase">Rooms</span></h1>
         </div>
+        <a href="{% url 'hotel:RoomListView' %}" class="btn btn-dark my-3" role="button">Book a Room</a>
         <div class="row g-4">
             {% for booked_room, price, image, description, checked_in in booked_rooms %}
             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">

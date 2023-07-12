@@ -22,7 +22,7 @@
                   <form method="post" class="login" id="signup_form" action="{% url 'account_login' %}">
                     {{ form.non_field_errors | safe }}
                       {% csrf_token %}
-                      <div class="row g-3">
+                        <div class="row g-3">
                           <div class="col-12">
                             <div class="form-floating form-group">
                                 {{ form.login }}
@@ -51,7 +51,7 @@
                               <button class="btn btn-primary w-100 py-3 bg-accent" type="submit">Sign in</button>
                               <a class="button secondaryAction text-accent" href="{% url 'account_reset_password' %}">Forgot Password?</a>
                           </div>
-                      </div>
+                        </div>
                   </form>
               </div>
           </div>

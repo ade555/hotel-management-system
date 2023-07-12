@@ -48,11 +48,14 @@ class RoomDetailView(View):
         if len(room_list) > 0:
             room = room_list[0]
             room_category = dict(ROOM_TYPES).get(room.properties.all().first().room_type.room_type, None)
+            room_type_obj = RoomType.objects.get(room_type=room_type)  # Get RoomType object
+            room_images = RoomImage.objects.filter(room_type=room_type_obj)
 
-            print(room_category)
             context = {
                 'room_category': room_category,
                 'form': form,
+                'room_images':room_images,
+                'room_type_obj':room_type_obj,
             }
             return render(request, 'hotel/room_detail_view.html', context)
         else:

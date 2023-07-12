@@ -7,7 +7,7 @@ __pycache__/
 migrations/
 # C extensions
 *.so
-
+latest.dump
 # Distribution / packaging
 .Python
 build/

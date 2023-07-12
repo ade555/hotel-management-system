@@ -1,11 +1,9 @@
 from django.contrib import admin
+from project_core.admin import custom_admin
 from .models import Room, Booking, RoomImage, RoomType, RoomProperties
 
-admin.site.register(RoomImage)
-admin.site.register(RoomType)
-admin.site.register(RoomProperties)
-
-
+custom_admin.register(RoomImage)
+custom_admin.register(RoomType)
 
 @admin.register(Room)
 class RoomAdmin(admin.ModelAdmin):
@@ -37,12 +35,14 @@ class RoomAdmin(admin.ModelAdmin):
         return self.get_room_property(obj, 'price_per_night')
     get_price_per_night.short_description = 'Room Price per night'
 
-
+@admin.register(RoomProperties)
+class RoomPropertiesAdmin(admin.ModelAdmin):
+    list_display = ['room_type', 'number_of_beds', 'capacity', 'price_per_night']
 
 @admin.register(Booking)
 class BookingAdmin(admin.ModelAdmin):
-    list_display = ['get_room_type', 'get_number_of_beds', 'get_capacity', 'get_price_per_night']
-    list_filter = ['room__properties__room_type',]
+    list_display = ['get_room_type', 'get_number_of_beds', 'get_capacity', 'get_price_per_night', 'display_check_in', 'display_check_out']
+    list_filter = ['room__properties__room_type', 'check_in', 'check_out']
 
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
@@ -72,3 +72,19 @@ class BookingAdmin(admin.ModelAdmin):
     def get_price_per_night(self, obj):
         return self.get_booked_room_property(obj, 'price_per_night')
     get_price_per_night.short_description = 'Room Price per night'
+
+
+    # Display only the check in and check out dates in the admin panel i.e. exclude the time
+    def display_check_in(self, obj):
+        return obj.check_in.date()
+
+    def display_check_out(self, obj):
+        return obj.check_out.date()
+
+    display_check_in.short_description = 'Check-in Date'
+    display_check_out.short_description = 'Check-out Date'
+
+
+custom_admin.register(RoomProperties, RoomPropertiesAdmin)
+custom_admin.register(Room, RoomAdmin)
+custom_admin.register(Booking, BookingAdmin)

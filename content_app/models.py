@@ -6,3 +6,7 @@ class ContactMessage(models.Model):
     subject = models.CharField(max_length=250)
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "User Feedback"
+        verbose_name_plural = "User Feedback"

@@ -1,6 +1,5 @@
 from django.db import models
 from django.conf import settings
-# from django.urls import reverse_lazy
 
 from .room_types import ROOM_TYPES
 
@@ -21,17 +20,9 @@ class RoomProperties(models.Model):
     class Meta:
         verbose_name_plural = "Room properties"
 
-    def __str__(self):
-        return f"{self.room_type} - Beds: {self.number_of_beds}, Capacity: {self.capacity}"
-
 class Room(models.Model):
     room_number = models.IntegerField(unique=True)
     properties = models.ManyToManyField('RoomProperties')
-
-
-    def __str__(self):
-        room_type = self.properties.first().room_type if self.properties else None
-        return f"Room {self.room_number} \nType: {room_type}"
 
 class RoomImage(models.Model):
     room_type = models.ForeignKey(RoomType, on_delete=models.CASCADE)
@@ -46,10 +37,6 @@ class Booking(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     check_in = models.DateTimeField()
     check_out = models.DateTimeField()
-
-    def __str__(self):
-        room_number = self.room.room_number if self.room else None
-        return f"Booking for Room number {room_number}"
 
     def get_room_type(self):
         room_types = dict(ROOM_TYPES)

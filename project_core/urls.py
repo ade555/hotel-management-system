@@ -18,9 +18,10 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from .admin import custom_admin
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', custom_admin.urls),
     path('accounts/', include('allauth.urls')),
     path('accounts/profile/', include('users.urls')),
     path('hotel/', include("hotel.urls")),

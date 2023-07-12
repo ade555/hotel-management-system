@@ -4,7 +4,7 @@ from django.conf import settings
 from .room_types import ROOM_TYPES
 
 class RoomType(models.Model):
-    room_type = models.CharField(max_length=15, choices=ROOM_TYPES)
+    room_type = models.CharField(max_length=15, choices=ROOM_TYPES, unique=True)
     description = models.TextField()
 
     def __str__(self):
@@ -19,6 +19,8 @@ class RoomProperties(models.Model):
 
     class Meta:
         verbose_name_plural = "Room properties"
+    def __str__(self):
+        return f"{self.room_type} room, {self.number_of_beds} bed(s), {self.capacity} person(s)"        
 
 class Room(models.Model):
     room_number = models.IntegerField(unique=True)

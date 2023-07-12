@@ -31,7 +31,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 if(len(sys.argv)>= 2 and sys.argv[1]=='runserver'):
     DEBUG = True
 else:
-    DEBUG = False 
+    DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'hotel-miramar-sg.onrender.com', 'hotel-miramar-sg.designitafrica.org']
 

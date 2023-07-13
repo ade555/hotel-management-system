@@ -50,6 +50,7 @@ else:
         'HOST':os.environ.get("DB_HOST"),
         }
     }
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ALLOWED_HOSTS = ['127.0.0.1', 'hotel-miramar-sg.onrender.com', 'hotel-miramar-sg.designitafrica.org']
 
@@ -181,7 +182,6 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
@@ -204,7 +204,6 @@ EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS")
 DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL")
-
 CONTACT_EMAIL = os.environ.get("CONTACT_EMAIL")
 
 AUTH_USER_MODEL = 'users.User'

@@ -38,7 +38,7 @@ if(len(sys.argv)>= 2 and sys.argv[1]=='runserver'):
         }
     }
 else:
-    DEBUG = True
+    DEBUG = False
     SITE_ID = 4
     DATABASES = {
     'default': {

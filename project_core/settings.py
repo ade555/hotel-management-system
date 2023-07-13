@@ -33,7 +33,7 @@ if(len(sys.argv)>= 2 and sys.argv[1]=='runserver'):
     SITE_ID = 3
 else:
     DEBUG = True
-    SITE_ID = 1
+    SITE_ID = 3
 
 ALLOWED_HOSTS = ['127.0.0.1', 'hotel-miramar-sg.onrender.com', 'hotel-miramar-sg.designitafrica.org']
 

@@ -1,6 +1,5 @@
 services:
   - type: web
-    plan: free
     name: HOTEL MIRAMAR SG
     runtime: python
     buildCommand: "./build.sh"
@@ -14,5 +13,5 @@ services:
         generateValue: true
       - key: WEB_CONCURRENCY
         value: 4
-      -key: PYTHON_VERSION
+      - key: PYTHON_VERSION
         value: 3.11.0

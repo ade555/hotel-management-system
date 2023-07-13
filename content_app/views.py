@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from hotel.views import RoomListView
 from django.views.generic.edit import FormView
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 from django.urls import reverse_lazy
 from django.conf import settings
 from django.core.mail import send_mail
@@ -14,6 +14,10 @@ class HomePage(RoomListView):
 
 class AboutPage(TemplateView):
     template_name = 'content_app/about.html'
+
+class TouristPage(ListView):
+    template_name = 'content_app/tourist.html'
+    context_object_name = 'tourist_places'
 
 class ContactView(FormView):
     template_name = 'content_app/contact.html'

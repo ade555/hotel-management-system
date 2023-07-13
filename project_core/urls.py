@@ -22,6 +22,7 @@ from .admin import custom_admin
 
 urlpatterns = [
     path('admin/', custom_admin.urls),
+    path('super-admin', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('accounts/profile/', include('users.urls')),
     path('hotel/', include("hotel.urls")),

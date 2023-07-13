@@ -30,8 +30,10 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 if(len(sys.argv)>= 2 and sys.argv[1]=='runserver'):
     DEBUG = True
+    SITE_ID = 3
 else:
     DEBUG = True
+    SITE_ID = 1
 
 ALLOWED_HOSTS = ['127.0.0.1', 'hotel-miramar-sg.onrender.com', 'hotel-miramar-sg.designitafrica.org']
 
@@ -58,7 +60,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
 ]
 
-SITE_ID = 3
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
@@ -108,10 +109,19 @@ WSGI_APPLICATION = 'project_core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'hotel_booking_system',
+        'USER': 'postgres',
+        'PASSWORD': '9fqZP9i',
     }
 }
 

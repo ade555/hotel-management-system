@@ -25,7 +25,6 @@ class RoomListView(ListView):
                 # Perform a search based on the extracted first word
                 queryset = queryset.filter(room_type__iregex=r'\b{}\b'.format(first_word))
         return queryset
-
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

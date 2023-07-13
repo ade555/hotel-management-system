@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+
+{% block title %}Sign In{% endblock %}
+
+{% block content %}
+{% if process == "connect" %}
+<center class="container">
+  <h1 class="text-center">Connect Google</h1>
+
+  <p class="text-center">You are about to connect a new third party account from Google</p>
+  {% else %}
+  <h1 class="text-center">Sign In Via Google</h1>
+
+  <p class="text-center">You are about to sign in using a third party account from Google</p>
+  {% endif %}
+
+<center>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-dark text-primary">Continue</button>
+  </form>
+</center>
+</center>
+{% endblock %}

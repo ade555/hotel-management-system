@@ -62,8 +62,8 @@
                                 {% endif %}
                             </div>
                             {% if user.is_authenticated %}
-                                <a href="{% url 'users:ProfileView' %}" class="btn btn-dark" role="button"><i class="far fa-user"></i> Profile</a>
-                                <a href="{% url 'account_logout' %}" class="btn btn-dark mx-auto" role="button"><i class="fa fa-sign-out-alt"></i> Log-out</a>
+                                <a href="{% url 'users:ProfileView' %}" class="btn btn-dark text-primary" role="button"><i class="far fa-user"></i> Profile</a>
+                                <a href="{% url 'account_logout' %}" class="btn btn-dark text-primary mx-auto" role="button"><i class="fa fa-sign-out-alt"></i> Log-out</a>
                             {% else %}
                                 <a href="{% url 'account_login' %}" class="btn btn-dark text-primary mx-auto" role="button"><i class="fas fa-sign-in-alt"></i> Login</a>
                             {% endif %}

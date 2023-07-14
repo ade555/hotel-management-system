@@ -38,7 +38,7 @@
 {% if request.GET.search %}
         <div class="container-xxl py-5">
             <div class="container">
-            {% if not rooms %}
+            {% if rooms %}
                 <h1>You searched for {{search}}</h1> 
                 <div class="row g-4">
                     {% for room, room_url in room_list %}

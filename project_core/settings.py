@@ -38,7 +38,7 @@ if(len(sys.argv)>= 2 and sys.argv[1]=='runserver'):
         }
     }
 else:
-    DEBUG = True
+    DEBUG = False
     SITE_ID = 4
     DATABASES = {
     'default': {
@@ -218,6 +218,6 @@ AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_SIGNATURE_NAME = os.environ.get('AWS_S3_SIGNATURE_NAME')
 AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME')
 AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL =  os.environ.get('AWS_DEFAULT_ACL')
+# AWS_DEFAULT_ACL =  os.environ.get('AWS_DEFAULT_ACL')
 AWS_S3_VERITY = os.environ.get('AWS_S3_VERITY')
 DEFAULT_FILE_STORAGE = 'project_core.storages.MediaStore'

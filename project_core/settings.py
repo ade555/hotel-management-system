@@ -128,8 +128,14 @@ WSGI_APPLICATION = 'project_core.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'hotel_booking_system',
+#         'USER': 'postgres',
+#         'PASSWORD': '9fqZP9i',
+#         }
+#     }
 # allauth configurations
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',

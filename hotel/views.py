@@ -1,4 +1,5 @@
 import re
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, View, DeleteView
 from django.http import HttpResponse, Http404
@@ -14,16 +15,15 @@ class RoomListView(ListView):
     model = RoomType
     context_object_name = 'rooms'
     template_name = "hotel/room_list.html"
+
     def get_queryset(self):
         queryset = super().get_queryset().prefetch_related('roomimage_set', 'roomproperties_set')
         search_query = self.request.GET.get('search')
         if search_query:
-            # Extract the first word from the search query
-            match = re.search(r'\b(\w+)', search_query)
-            if match:
-                first_word = match.group(1)
-                # Perform a search based on the extracted first word
-                queryset = queryset.filter(room_type__iregex=r'\b{}\b'.format(first_word))
+            queryset = queryset.filter(
+                Q(room_type__icontains=search_query) |  # Match room type
+                Q(description__icontains=search_query) # Match description
+            )
         return queryset
     
     def get_context_data(self, **kwargs):

@@ -38,7 +38,7 @@
 {% if request.GET.search %}
         <div class="container-xxl py-5">
             <div class="container">
-            {% if rooms %}
+            {% if not rooms %}
                 <h1>You searched for {{search}}</h1> 
                 <div class="row g-4">
                     {% for room, room_url in room_list %}
@@ -46,7 +46,7 @@
                     {% endfor %}
                 </div>
              {% else %}
-             {% comment %} return error message ifuser's search query does not  match any rooms {% endcomment %}
+             {% comment %} return error message if user's search query does not  match any rooms {% endcomment %}
              <center>
                  <div class="container">
                      <h1 class="emoji">😕</h1>

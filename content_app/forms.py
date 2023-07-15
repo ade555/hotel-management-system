@@ -1,6 +1,7 @@
 from django import forms
 from .models import ContactMessage
 
+# a form to take in user feedback from the contact page
 class ContactForm(forms.ModelForm):
     class Meta:
         model = ContactMessage

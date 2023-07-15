@@ -1,3 +1,62 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block content %} hello {% endblock content %}
+{% block content %} 
+
+{% comment %} <!-- Page Header Start --> {% endcomment %}
+<div class="container-fluid page-header mb-5 p-0" style="background-image: url('{% static 'img/about-2.jpg' %}');">
+    <div class="container-fluid page-header-inner py-5">
+        <div class="container text-center pb-5">
+            <h1 class="display-3 text-white mb-3 animated slideInDown">Tourist Spots</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center text-uppercase">
+                    <li class="breadcrumb-item"><a href="{%url 'content_app:home'%}">Home</a></li>
+                    <li class="breadcrumb-item text-white active" aria-current="page">Tourist Spots</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+{% comment %} <!-- Page Header End --> {% endcomment %}
+
+<div class="container-xxl py-5">
+    <div class="container">
+        {% comment %} <!-- Room start --> {% endcomment %}
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                    <h6 class="section-title text-center text-accent text-uppercase">Tourist Spots</h6>
+                    <h1 class="mb-5">Explore The <span class="text-accent text-capitalize"> tourist spots</span> Around Us</h1>
+                </div>
+                <div class="row g-4">
+                    
+                    {% comment %} <!--List the nearby tourist spots --> {% endcomment %}
+                    {% for place in tourist_places %}
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="room-item shadow rounded overflow-hidden">
+                            <div class="position-relative">
+                                <img class="img-fluid" src="{{ place.image.url }}" alt="{{ room.room_type }}" style="height: 250px; width: 100%;">
+                            </div>
+                            <div class="p-4 mt-2">
+                                <div class="d-flex justify-content-between mb-3">
+                                    <h5 class="mb-0">{{ place.tourist_spot_name|capfirst|truncatechars:25 }}</h5>
+                                </div>
+                                <p class="text-body mb-3" style="white-space: pre-wrap;"> {{ place.description|truncatechars:300 }}</p>
+                                <div class="d-flex justify-content-between">
+                                    <a class="btn btn-sm btn-primary rounded py-2 px-4" target="_blank" href="{{ place.link }}">Visit </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% empty %}
+                    <h2 class="text-center">Sorry, there are no tourist spots around us right now.😔</h2>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% comment %} <!-- Room End --> {% endcomment %}
+    </div>
+</div>
+
+{% endblock content %}

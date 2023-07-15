@@ -4,7 +4,7 @@
 
 {% block title %} Welcome to Hotel Miramar SG {% endblock title %}
 {% block content %}
-        <!-- About Start -->
+{% comment %} <!-- About Start --> {% endcomment %}
         <div class="container-xxl py-5">
             <div class="container">
                 <div class="row g-5 align-items-center">
@@ -33,9 +33,9 @@
                 </div>
             </div>
         </div>
-        <!-- About End -->
+        {% comment %} <!-- About End --> {% endcomment %}
         
-        <!-- Room Start -->
+        {% comment %} <!-- Room start --> {% endcomment %}
         <div class="container-xxl py-5">
             <div class="container">
                 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
@@ -43,15 +43,16 @@
                     <h1 class="mb-5">Explore Our <span class="text-accent text-uppercase">Rooms</span></h1>
                 </div>
                 <div class="row g-4">
+                    {% comment %} <!--List only the first 3 rooms on the home page --> {% endcomment %}
                     {% for room, room_url in room_list|slice:":3" %}
                     {% include 'rooms_list.html' %}
                     {% endfor %}
                 </div>
             </div>
         </div>
-        <!-- Room End -->
+        {% comment %} <!-- Room End --> {% endcomment %}
 
-        <!-- Service Start -->
+        {% comment %} <!-- Hotel services start --> {% endcomment %}
         <div class="container-xxl py-5">
             <div class="container">
                 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
@@ -128,10 +129,10 @@
                 </div>
             </div>
         </div>
-        <!-- Service End -->
+        {% comment %} <!-- Hotel services End --> {% endcomment %}
 
 
-        <!-- Before Footer -->
+        {% comment %} <!-- Image before footer start --> {% endcomment %}
         <div class="container-xxl before-footer my-5 py-5 bg-dark wow zoomIn" style="height: 40vh;" data-wow-delay="0.1s"></div>
-        <!-- Before Footer -->
+        {% comment %} <!-- Image before footer End --> {% endcomment %}
 {% endblock content %}

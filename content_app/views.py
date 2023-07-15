@@ -8,7 +8,9 @@ from django.core.mail import send_mail
 from django.contrib import messages
 from django.template.loader import render_to_string
 from .forms import ContactForm
+from .models import TouristSpot
 
+# this view from the homepage inherits from the hotel.RoomListView view in the hotel app
 class HomePage(RoomListView):
     template_name = 'content_app/index.html'
 
@@ -18,12 +20,15 @@ class AboutPage(TemplateView):
 class TouristPage(ListView):
     template_name = 'content_app/tourist.html'
     context_object_name = 'tourist_places'
+    model = TouristSpot
 
+# contact view for user to send feedback and make enquires
 class ContactView(FormView):
     template_name = 'content_app/contact.html'
     form_class = ContactForm
     success_url = reverse_lazy('content_app:contact')
 
+    # if the form is valid, save the message to the model, send an email to the user and an admin email specified.
     def form_valid(self, form):
         # Save the message in the database
         form.save()

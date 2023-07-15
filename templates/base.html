@@ -57,6 +57,7 @@
                                 <a href="{% url 'content_app:about' %}" class="nav-item nav-link text-white">About</a>
                                 <a href="{% url 'hotel:RoomListView' %}" class="nav-item nav-link text-white">Rooms</a>
                                 <a href="{% url 'content_app:contact' %}" class="nav-item nav-link text-white">Contact</a>
+                                <a href="{% url 'content_app:tourist-spots' %}" class="nav-item nav-link text-white">Tourist Spots</a>
                                 {% if user.is_authenticated %}
                                     <a href="{% url 'hotel:BookedRoomsView' %}" class="nav-item nav-link text-white">Booked Rooms</a>
                                 {% endif %}
@@ -83,7 +84,7 @@
                 <div class="row g-5">
                     <div class="col-md-6 col-lg-3">
                         <h5 class="section-title text-start text-accent text-uppercase mb-4">Contact</h5>
-                        <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, Lagos, Nigeria</p>
+                        <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Lekki, Lagos, Nigeria</p>
                         <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+2349010750893</p>
                         <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@hotelmiramarsg.com</p>
                         <div class="d-flex pt-2">

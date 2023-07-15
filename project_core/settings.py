@@ -31,15 +31,22 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 if(len(sys.argv)>= 2 and sys.argv[1]=='runserver'):
     DEBUG = True
     SITE_ID = 3
+
+    # database for development
     DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
+    # Media for development
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 else:
     DEBUG = False
     SITE_ID = 4
+
+    # database setting for production
     DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -51,6 +58,16 @@ else:
         }
     }
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+    # AWS S3 bucket configuration for media files in production
+    AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+    AWS_S3_SIGNATURE_NAME = os.environ.get('AWS_S3_SIGNATURE_NAME')
+    AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME')
+    AWS_S3_FILE_OVERWRITE = False
+    AWS_S3_VERITY = os.environ.get('AWS_S3_VERITY')
+    DEFAULT_FILE_STORAGE = 'project_core.storages.MediaStore'
 
 ALLOWED_HOSTS = ['127.0.0.1', 'hotel-miramar-sg.onrender.com', 'hotel-miramar-sg.designitafrica.org']
 
@@ -125,17 +142,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'project_core.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'hotel_booking_system',
-#         'USER': 'postgres',
-#         'PASSWORD': '9fqZP9i',
-#         }
-#     }
 # allauth configurations
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
@@ -201,10 +207,6 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Media
-# MEDIA_URL = '/media/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = os.environ.get('EMAIL_HOST')
@@ -216,14 +218,3 @@ DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL")
 CONTACT_EMAIL = os.environ.get("CONTACT_EMAIL")
 
 AUTH_USER_MODEL = 'users.User'
-
-
-AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
-AWS_S3_SIGNATURE_NAME = os.environ.get('AWS_S3_SIGNATURE_NAME')
-AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME')
-AWS_S3_FILE_OVERWRITE = False
-# AWS_DEFAULT_ACL =  os.environ.get('AWS_DEFAULT_ACL')
-AWS_S3_VERITY = os.environ.get('AWS_S3_VERITY')
-DEFAULT_FILE_STORAGE = 'project_core.storages.MediaStore'

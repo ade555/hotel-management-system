@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% load static humanize%}
 
-{% block title %} My booked rooms {% endblock title %}
+{% block title %} Booked rooms {% endblock title %}
 {% block content %}
-        <!-- Page Header Start -->
+        {% comment %} <!-- Page Header Start--> {% endcomment %}
         {% include 'flash_messages.html' %}
         <div class="container-fluid page-header mb-5 p-0" style="background-image: url('{% static 'img/about-1.jpg' %}');">
             <div class="container-fluid page-header-inner py-5">
@@ -19,16 +19,19 @@
                 </div>
             </div>
         </div>
-        <!-- Page Header End -->
-<!-- Booked Rooms Start -->
+        {% comment %} <!-- Page Header End --> {% endcomment %}
+
+{% comment %} <!-- Booked Rooms Start --> {% endcomment %}
 <div class="container-xxl py-5">
     <div class="container">
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
             <h6 class="section-title text-center text-accent text-uppercase">Booked Rooms</h6>
-            <h1 class="mb-5">View Your Booked <span class="text-accent text-uppercase">Rooms</span></h1>
+            <h1 class="mb-5">View {% if user.is_authenticated %}All {% else %} Your {% endif %} Booked <span class="text-accent text-uppercase">Rooms</span></h1>
         </div>
         <a href="{% url 'hotel:RoomListView' %}" class="btn btn-dark my-3" role="button">Book a Room</a>
         <div class="row g-4">
+
+            {% comment %} <!--list all the rooms booked by the user--> {% endcomment %}
             {% for booked_room, price, image, description, checked_in in booked_rooms %}
             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="room-item shadow rounded overflow-hidden">
@@ -48,6 +51,8 @@
                         <strong><small class="d-block">Check out: {{booked_room.check_out}}</small></strong>
                         <p class="text-body mb-3 mt-2">{{ description|truncatechars:100 }}</p>
                         <div class="d-flex justify-content-between">
+
+                            {% comment %} <!--prevent user from canclling a booked room if they have already checked out--> {% endcomment %}
                             {% if not checked_in %}
                             <button type="button" class="btn btn-secondary" disabled>Checked out</button>
                             {% else %}
@@ -59,7 +64,8 @@
                     </div>
                 </div>
             </div>
-            <!-- Modal start -->
+            
+        {% comment %} <!-- Modal start --> {% endcomment %}
             <div class="modal fade" id="cancelbookingModal{{ booked_room.pk }}" tabindex="-1" aria-labelledby="cancelbookingModalLabel{{ booked_room.pk }}" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -80,8 +86,10 @@
                     </div>
                 </div>
             </div>
-             <!-- Modal end -->
+        {% comment %} <!-- Modal end --> {% endcomment %}
+             
             {% empty %}
+            {% comment %} <!-- return an error message if the user does not have a booked room --> {% endcomment %}
             <div class="col">
                 <center>
                     <div class="container">
@@ -95,6 +103,6 @@
         </div>
     </div>
 </div>
-<!-- Booked Rooms End -->
+{% comment %} <!-- Booked Rooms End --> {% endcomment %}
 
 {% endblock content %}

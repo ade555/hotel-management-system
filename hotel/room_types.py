@@ -1,3 +1,4 @@
+# a tuple to hold the available rooms types or category in the hotel
 ROOM_TYPES = (
 ('standard', 'Standard Room'),
 ('deluxe', 'Deluxe Room'),

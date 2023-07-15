@@ -1,6 +1,6 @@
 from hotel.models import Booking
 
-
+# function to check if a room choosen by the user is available for booking
 def check_room_availability(room, check_in, check_out):
     available_rooms_list = []
     booked_rooms_list = Booking.objects.filter(room=room)

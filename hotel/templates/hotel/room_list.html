@@ -3,7 +3,7 @@
 
 {% block title %} Our rooms {% endblock title %}
 {% block content %}
-        <!-- Page Header Start -->
+        {% comment %} <!-- Page Header Start --> {% endcomment %}
         {% include 'flash_messages.html' %}
         <div class="container-fluid page-header mb-5 p-0" style="background-image: url('{% static 'img/about-1.jpg' %}');">
             <div class="container-fluid page-header-inner py-5">
@@ -18,7 +18,7 @@
                 </div>
             </div>
         </div>
-        <!-- Page Header End -->
+        {% comment %} <!-- Page Header End --> {% endcomment %}
 
 <div class="container">
     <div class="row justify-content-end">
@@ -34,8 +34,9 @@
         </div>
     </div>
 </div>        
-{% comment %} check if the user searches for a room{% endcomment %}
+{% comment %} <!--check if the user searches for a room--> {% endcomment %}
 {% if request.GET.search %}
+        {% comment %} <!-- return search result based on user's search keyword --> {% endcomment %}
         <div class="container-xxl py-5">
             <div class="container">
             {% if rooms %}
@@ -46,7 +47,7 @@
                     {% endfor %}
                 </div>
              {% else %}
-             {% comment %} return error message if user's search query does not  match any rooms {% endcomment %}
+             {% comment %} <!--return error message if user's search query does not  match any rooms--> {% endcomment %}
              <center>
                  <div class="container">
                      <h1 class="emoji">😕</h1>
@@ -59,7 +60,7 @@
             </div>
         </div>
 {% else %}
-        <!-- Room Start -->
+        {% comment %} <!-- Room start --> {% endcomment %}
         <div class="container-xxl py-5">
             <div class="container">
                 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
@@ -73,6 +74,6 @@
                 </div>
             </div>
         </div>
-        <!-- Room End -->
+        {% comment %} <!-- Room end --> {% endcomment %}
 {% endif %}
 {% endblock content %}

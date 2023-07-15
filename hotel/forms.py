@@ -1,5 +1,6 @@
 from django import forms
 
+# create a form that accepts the check-in and check-out date from the user. this will be used to book a room
 class BookingForm(forms.Form):
     check_in = forms.DateTimeField(
         required=True, input_formats=["%Y-%m-%dT%H:%M"],
@@ -9,10 +10,3 @@ class BookingForm(forms.Form):
         required=True, input_formats=["%Y-%m-%dT%H:%M"],
         widget=forms.DateTimeInput(attrs={'type': 'datetime-local', 'class':'form-control'})
     )
-
-    """
-    
-    TO DO:
-    Work on form widget to allow cross browser compatibility in date time field
-
-    """

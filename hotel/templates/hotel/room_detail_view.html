@@ -3,7 +3,7 @@
 
 {% block title %} Book a {{room_category}} {% endblock title %}
 {% block content %}
-<!-- Page Header Start -->
+{% comment %} <!-- Page Header Start --> {% endcomment %}
 <div class="container-fluid page-header mb-5 p-0" style="background-image: url('{% static 'img/about-1.jpg' %}');">
     <div class="container-fluid page-header-inner py-5">
         <div class="container text-center pb-5">
@@ -18,20 +18,24 @@
         </div>
     </div>
 </div>
-<!-- Page Header End -->
+{% comment %} <!-- Page Header End --> {% endcomment %}
 <div class="container">
     <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
         <h6 class="section-title text-center text-accent text-uppercase">Our Rooms</h6>
         <h1 class="mb-5">Explore Our <span class="text-accent text-uppercase">Rooms</span></h1>
     </div>
     <div class="row my-5">
+        {% comment %} <!-- Create a carousel with the images available for the rooms --> {% endcomment %}
         <div class="col-md-6 wow fadeInUp" data-wow-delay="0.1s"> 
             <div id="carouselExampleIndicators" class="carousel slide" style="overflow: hidden; width: auto;">
+
+                {% comment %} <!--Use the room images as carousel indicators --> {% endcomment %}
                 <div class="carousel-indicators">
                 {% for image in room_images %}
                     <img src="{{ image.image.url }}" style="height: 35px; width: 35px;" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active" aria-current="true"{% endif %} aria-label="Slide {{ forloop.counter }}"></img>
                 {% endfor %}
                 </div>
+
                 <div class="carousel-inner">
                 {% for image in room_images %}
                     <div class="carousel-item {% if forloop.first %}active{% endif %}">
@@ -62,6 +66,7 @@
             <h6 class="section-title text-center text-accent text-uppercase">Rooms</h6>
             <h1 class="mb-5">Book a <span class="text-accent">{{room_category}}</span></h1>
         </div>
+        {% comment %} <!--prevent guest users from bookinig a room by asking them to log in first --> {% endcomment %}
         {% if not user.is_authenticated %}
         <h3 class="text-center mb-4">Please <a href="{% url 'account_login' %}" class="text-accent">log in</a> to book a room</h3>
         {% endif %}
@@ -88,6 +93,7 @@
                             </div>
                         </div>
                     </div>
+                    {% comment %} <!--disable button to prevent guest users from booking a room --> {% endcomment %}
                         <input class="btn btn-primary py-2 my-3 bg-accent" type="submit" value="Book room" {% if not user.is_authenticated %} disabled {% endif %}>
                 </form>
             </div>

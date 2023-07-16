@@ -1,6 +1,6 @@
 from django.forms.utils import ErrorList
 
-
+# a custom error class for form errors
 class DivErrorList(ErrorList):
     def __str__(self):
         return self.as_divs()

@@ -1,7 +1,7 @@
 from django.contrib import admin
 
+# create a new custom admin panel for the website admin
 class CustomAdmin(admin.AdminSite):
     site_header = 'Hello'
-    login_template = 'admin/login.html'
 
 custom_admin = CustomAdmin(name='custom-admin')

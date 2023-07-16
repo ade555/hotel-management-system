@@ -3,6 +3,7 @@ from .models import User
 from allauth.account.forms import SignupForm, LoginForm
 from project_core.utils import DivErrorList
 
+# form for the user to update their profile
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = User
@@ -15,6 +16,7 @@ class UserProfileForm(forms.ModelForm):
         }
 
 
+# create a custom signup for that overrides the default form by django all auth
 class CustomSignupForm(SignupForm):
     first_name = forms.CharField(max_length=30, label='First Name')
     last_name = forms.CharField(max_length=30, label='Last Name')
@@ -30,6 +32,7 @@ class CustomSignupForm(SignupForm):
         self.fields['last_name'].required = True
         self.error_class = DivErrorList
 
+    # save the custom login form with the new fields 
     def save(self, request):
         user = super().save(request)
         if user:
@@ -38,8 +41,10 @@ class CustomSignupForm(SignupForm):
             user.save()
         return user
 
+# create a custom login for that overrides the default form by django all auth
 class CustomLoginForm(LoginForm):
     def __init__(self, *args, **kwargs):
+        # add a custom css class to the fields
         super(CustomLoginForm, self).__init__(*args, **kwargs)
         self.fields['login'].widget.attrs.update({'placeholder': 'Email', 'class': 'form-control'})
         self.fields['password'].widget.attrs.update({'placeholder': 'Password', 'class': 'form-control'})

@@ -1,5 +1,6 @@
 from django import forms
 from .models import ContactMessage
+from project_core.utils import DivErrorList
 
 # a form to take in user feedback from the contact page
 class ContactForm(forms.ModelForm):
@@ -12,3 +13,6 @@ class ContactForm(forms.ModelForm):
             'subject': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Subject'}),
             'message': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Your Message', 'rows': 5}),
         }
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.error_class = DivErrorList

@@ -7,4 +7,5 @@ class UserAdmin(admin.ModelAdmin):
     fields = ['first_name', "last_name", 'email', 'profile_picture', 'is_active', "last_login"]
     list_display = ['first_name', 'last_name', 'email']
 
+# register model to custom admin
 custom_admin.register(User, UserAdmin)
